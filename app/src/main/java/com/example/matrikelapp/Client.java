@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class Client implements Runnable{
-    private String inputUser;
+    private volatile String inputUser;
     Socket socket;
     String modifiedSentence; //Antwort vom Server
 
@@ -28,6 +28,7 @@ public class Client implements Runnable{
             sentByUser.writeBytes(inputUser + "\n"); //für den Beginn des Einlesens
 
             modifiedSentence = incomingFserver.readLine();
+            System.out.println(modifiedSentence);
             sentByUser.close();
             socket.close();
 

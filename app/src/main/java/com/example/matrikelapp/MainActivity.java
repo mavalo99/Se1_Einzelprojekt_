@@ -1,22 +1,25 @@
 package com.example.matrikelapp;
 
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.ClientCertRequest;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.lang.Math;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -48,7 +51,9 @@ public class MainActivity extends AppCompatActivity {
         berechnen.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        calcMatr(eingabe);
+                        eingabe.setText(calcMatr(eingabe));
+                       // final TextView response = eingabe;
+
 
                     }
                 }
@@ -58,9 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    //calcMatr
-
+    public synchronized void showResult(EditText notification) {
+        final TextView antwortBerechnung = findViewById(R.id.EingabeMatrNr);
+        antwortBerechnung.setText(calcMatr(notification));
+    }
 
     public int calcMatr(EditText eingabe) {
         int x = 0;
@@ -72,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
         // von char[] zu int[]
         int[] arr = new int[matarr.length];
-        for (int d = 0; d < arr.length; d++){
+        for (int d = 0; d < arr.length; d++) {
             arr[d] = Character.getNumericValue(matarr[d]);
         }
 
-            // Range definineren
+        // Range definineren
         int max = 9;
         int min = 0;
         int range = max - min + 1;
