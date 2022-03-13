@@ -9,16 +9,15 @@ import java.net.Socket;
 public class Client implements Runnable{
     private String inputUser;
     Socket socket;
-
+    String modifiedSentence; //Antwort vom Server
 
 
     public void run() {
         try {
             String sentence; //Eingabe sent als bytestram
-            String modifiedSentence; //Antwort vom Server
-            //  String serversantwort;
 
-            socket = new Socket("ddfsfdf", 4545);
+
+            socket = new Socket("se2-isys.aau.at", 53212);
             DataOutputStream sentByUser = new DataOutputStream(socket.getOutputStream());
 
             BufferedReader incomingFuser = new BufferedReader(new InputStreamReader(System.in));

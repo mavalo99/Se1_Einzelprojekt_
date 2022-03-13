@@ -29,10 +29,17 @@ public class MainActivity extends AppCompatActivity {
         new Thread(handy).start();
 
 
+        Client finalHandy = handy;
         abschicken.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        //rufe sendInputUser / run auf!!
+                        //rufe sendInputUser / run auf!! -> modifiedsentence
+                        String matrNr = eingabe.toString(); //eingegtippte wird in String und dann der
+                        finalHandy.sendInputUser(matrNr);
+
+                        String responseServer = finalHandy.modifiedSentence; //
+                        TextView answer = findViewById(R.id.AntwortServer);
+                        answer.setText(responseServer);
                     }
                 }
 
@@ -47,14 +54,30 @@ public class MainActivity extends AppCompatActivity {
         );
 
 
-//client call my.start();
     }
 
 
 }
 
-    //calcMatr.z
-    //aendern
+    //calcMatr
+
+
     CharSequence matrnr = eingabe.getText();
     char[] matarr = matnr.toString().toCharacterArray();
     int[] arr = charArrayToIntArray(matarr);
+
+    public void calcMatr() {
+        int x = 0;
+        int y = 0;
+        int z = 1;
+        while () {
+            for (int i = 0; i < arr.length / 2; i++) {
+                z++;
+                x = arr[i];
+                int a = z / x;
+                for (int j = arr.length; j > arr.length / 2; j--) {
+                    x = arr[j];
+                }
+            }
+        }
+    }
