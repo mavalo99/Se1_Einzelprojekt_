@@ -11,15 +11,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Abschicken"
-        tools:layout_editor_absoluteX="151dp"
-        tools:layout_editor_absoluteY="501dp" />
+        tools:layout_editor_absoluteX="225dp"
+        tools:layout_editor_absoluteY="557dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Anweisung"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gib hier deine Matrikelnummer ein:"
         tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="244dp" />
+        tools:layout_editor_absoluteY="152dp" />
+
+    <EditText
+        android:id="@+id/EingabeMatrNr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <TextView
+        android:id="@+id/AntwortServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort vom Server"
+        tools:layout_editor_absoluteX="143dp"
+        tools:layout_editor_absoluteY="356dp" />
+
+    <Button
+        android:id="@+id/BerechnenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Berechnen"
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="557dp" />
 
 </android.support.constraint.ConstraintLayout>
