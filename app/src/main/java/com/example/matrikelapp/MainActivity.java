@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.Math;
+
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         final EditText eingabe = (EditText) findViewById(R.id.EingabeMatrNr);
 
         Client handy = new Client(); //startet server
-        handy = new Client();
         new Thread(handy).start();
 
 
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         berechnen.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        //calc Methode aufrufen
+                        calcMatr(eingabe);
+
                     }
                 }
 
@@ -57,27 +59,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-}
-
     //calcMatr
 
 
-    CharSequence matrnr = eingabe.getText();
-    char[] matarr = matnr.toString().toCharacterArray();
-    int[] arr = charArrayToIntArray(matarr);
-
-    public void calcMatr() {
+    public int calcMatr(EditText eingabe) {
         int x = 0;
         int y = 0;
-        int z = 1;
-        while () {
-            for (int i = 0; i < arr.length / 2; i++) {
-                z++;
+
+        //Übertragung eingabe in Sequence -> Array
+        CharSequence matrNr = eingabe.getText();
+        char[] matarr = matrNr.toString().toCharArray();
+
+        // von char[] zu int[]
+        int[] arr = new int[matarr.length];
+        for (int d = 0; d < arr.length; d++){
+            arr[d] = Character.getNumericValue(matarr[d]);
+        }
+
+            // Range definineren
+        int max = 9;
+        int min = 0;
+        int range = max - min + 1;
+
+        // Zahlen von 0-9 (Array) generieren
+        for (int f = 0; f < 9; f++) {
+            int rdm = (int) (Math.random() * range) + min;
+
+
+            for (int i = rdm; i < arr.length; i++) {
                 x = arr[i];
-                int a = z / x;
-                for (int j = arr.length; j > arr.length / 2; j--) {
-                    x = arr[j];
+                for (int j = rdm; j > arr.length / 2; j--) {
+                    y = arr[j];
+
+                    if ((x % i) == 0 && (y % j) == 0) {
+
+                        return arr[i];
+
+                    }
                 }
             }
         }
+        return 1;
     }
+}
+
+
