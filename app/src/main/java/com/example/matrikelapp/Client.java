@@ -10,25 +10,22 @@ public class Client implements Runnable{
     private volatile String inputUser;
     Socket socket;
     String modifiedSentence; //Antwort vom Server
+    String sentence; //Eingabe sent als bytestram
 
-
-    public void run() {
+    public void run() { //stellt eine Verbindung zum Host her
         try {
-            String sentence; //Eingabe sent als bytestram
-
 
             socket = new Socket("se2-isys.aau.at", 53212);
-            DataOutputStream sentByUser = new DataOutputStream(socket.getOutputStream());
+            DataOutputStream sentByUser = new DataOutputStream(socket.getOutputStream()); //Verbindung
 
             BufferedReader incomingFuser = new BufferedReader(new InputStreamReader(System.in));
             BufferedReader incomingFserver = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             sentence = incomingFuser.readLine();
 
-            sentByUser.writeBytes(inputUser + "\n"); //für den Beginn des Einlesens
+            sentByUser.writeBytes(inputUser + "\n"); //für den Beginn des Einlesens \n macht das es ausgeführt wird
 
-            modifiedSentence = incomingFserver.readLine();
-            System.out.println(modifiedSentence);
+            modifiedSentence = incomingFserver.readLine(); //Nachricht vom Server zurück bekommen
             sentByUser.close();
             socket.close();
 
@@ -37,9 +34,9 @@ public class Client implements Runnable{
         }
     }
 
-    public void sendInputUser(String iu) {
-        this.inputUser = iu;
-        run();
+    public void sendInputUser(String inpuse) {
+        this.inputUser = inpuse; //Matrikelnummer wird reingespeichert
+        run(); //wird aufgerufen/ausgeführt
     }
 }
 

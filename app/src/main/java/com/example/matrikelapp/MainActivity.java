@@ -1,5 +1,6 @@
 package com.example.matrikelapp;
 
+import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,43 +33,43 @@ public class MainActivity extends AppCompatActivity {
         Client handy = new Client(); //startet server
         new Thread(handy).start();
 
-
         Client finalHandy = handy;
+
         abschicken.setOnClickListener(
-                new View.OnClickListener() {
+                new Button.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     public void onClick(View v) {
-                        //rufe sendInputUser / run auf!! -> modifiedsentence
-                        String matrNr = eingabe.toString(); //eingegtippte wird in String und dann der
-                        finalHandy.sendInputUser(matrNr);
+
+
+                        String matrNr = eingabe.toString(); //eingabe wird in String gespeichert
+                        finalHandy.sendInputUser(matrNr); // nimmt Matrikelnummer entgegen / ruft in sendI.. Client auf
 
                         String responseServer = finalHandy.modifiedSentence; //
-                        TextView answer = findViewById(R.id.AntwortServer);
-                        answer.setText(responseServer);
+                        antwortServer.setText("Connection: ✅" + "\n" + responseServer);
+
                     }
                 }
-
         );
+
+
         berechnen.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        eingabe.setText(calcMatr(eingabe));
-                       // final TextView response = eingabe;
+                        String i = calcMatr(eingabe);
+                        eingabe.setText(i);
+
+
+                        // final TextView response = eingabe;
 
 
                     }
                 }
-
         );
 
 
     }
 
-    public synchronized void showResult(EditText notification) {
-        final TextView antwortBerechnung = findViewById(R.id.EingabeMatrNr);
-        antwortBerechnung.setText(calcMatr(notification));
-    }
-
-    public int calcMatr(EditText eingabe) {
+    public String calcMatr(EditText eingabe) {
         int x = 0;
         int y = 0;
 
@@ -92,21 +93,31 @@ public class MainActivity extends AppCompatActivity {
             int rdm = (int) (Math.random() * range) + min;
 
 
-            for (int i = rdm; i < arr.length; i++) {
+            for (int i = rdm; i < arr.length ; i++) {
                 x = arr[i];
                 for (int j = rdm; j > arr.length / 2; j--) {
                     y = arr[j];
 
-                    if ((x % i) == 0 && (y % j) == 0) {
+                    if ((x % i) > 1 && (y % j) > 1 && (arr[i] != arr[j])) {
 
-                        return arr[i];
+                        String zahl1 = Integer.toString(arr[i]);
+                        String zahl2 = Integer.toString(arr[j]);
+                        String loe = "Index1: " + zahl1 + " Index2: " + zahl2;
+                        return loe;
 
                     }
                 }
             }
         }
-        return 1;
+        String tt = "fail";
+        return tt;
     }
+
 }
+/*
+Prüfen, ob zwei beliebige Ziffern existieren die einen gemeinsamen Teiler > 1 haben.
+        Werden zwei Ziffern mit gemeinsamem Teiler gefunden,
+        soll deren Index ausgegeben werden.
+*/
 
 
